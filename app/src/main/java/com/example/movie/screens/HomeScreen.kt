@@ -29,7 +29,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                         }
 
                         DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                            DropdownMenuItem(onClick = { /* TODO: */ }) {
+                            DropdownMenuItem(onClick = { navController.navigate(MovieScreens.FavoriteScreen.name) }) {
                                 Icon(
                                     imageVector = Icons.Default.Favorite,
                                     contentDescription = "Favorites"
