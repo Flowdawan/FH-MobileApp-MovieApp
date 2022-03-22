@@ -63,4 +63,6 @@ dependencies {
     //Navigation Component
     implementation "androidx.navigation:navigation-compose:$navigation_version"
 
+    //Coil image Loading
+    implementation "io.coil-kt:coil-compose:$coil_version"
 }
