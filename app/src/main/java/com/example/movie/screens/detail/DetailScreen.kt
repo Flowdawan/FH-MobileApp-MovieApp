@@ -74,21 +74,21 @@ fun MainContent(movie: Movie, favoritesViewModel: FavoritesViewModel) {
 
             )
         }
+
+        Divider(
+            color = Color.Gray,
+            modifier = Modifier
+                .padding(2.dp)
+                .alpha(alpha = 0.6F)
+        )
+
+        Text(
+            "Movie Images",
+            style = MaterialTheme.typography.h5
+        )
+
+        HorizontalScrollableImageView(movie)
     }
-
-    Divider(
-        color = Color.Gray,
-        modifier = Modifier
-            .padding(2.dp)
-            .alpha(alpha = 0.6F)
-    )
-
-    Text(
-        "Movie Images",
-        style = MaterialTheme.typography.h5
-    )
-
-    HorizontalScrollableImageView(movie)
 }
 
 fun filterMovie(movieId: String?): Movie {
