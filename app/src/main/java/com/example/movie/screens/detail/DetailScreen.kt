@@ -19,6 +19,7 @@ import com.example.movie.models.Movie
 import com.example.movie.models.getMovies
 import com.example.movie.navigation.MovieScreens
 import com.example.movie.viewmodels.FavoritesViewModel
+import com.example.movie.widgets.FavoriteIcon
 import com.example.movie.widgets.HorizontalScrollableImageView
 import com.example.movie.widgets.MovieRow
 
@@ -57,33 +58,37 @@ fun MainContent(movie: Movie, favoritesViewModel: FavoritesViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MovieRow(
-            movie = movie,
-            onFavoriteClick = { movie ->
-                if (favoritesViewModel.isMovieInList(movie)) {
-                    favoritesViewModel.removeMovie(movie)
+        MovieRow(movie = movie)
+        {
+            FavoriteIcon(
+                movie = movie,
+                isAlreadyInList = favoritesViewModel.isMovieInList(movie),
+                onFavoriteClick = { movie ->
+                    if (favoritesViewModel.isMovieInList(movie)) {
+                        favoritesViewModel.removeMovie(movie)
 
-                } else {
-                    favoritesViewModel.addMovie(movie)
+                    } else {
+                        favoritesViewModel.addMovie(movie)
+                    }
                 }
-            },
-            isAlreadyInList = favoritesViewModel.isMovieInList(movie)
-        )
 
-        Divider(
-            color = Color.Gray,
-            modifier = Modifier
-                .padding(2.dp)
-                .alpha(alpha = 0.6F)
-        )
-
-        Text("Movie Images",
-            style = MaterialTheme.typography.h5
-        )
-
-        HorizontalScrollableImageView(movie)
+            )
+        }
     }
 
+    Divider(
+        color = Color.Gray,
+        modifier = Modifier
+            .padding(2.dp)
+            .alpha(alpha = 0.6F)
+    )
+
+    Text(
+        "Movie Images",
+        style = MaterialTheme.typography.h5
+    )
+
+    HorizontalScrollableImageView(movie)
 }
 
 fun filterMovie(movieId: String?): Movie {

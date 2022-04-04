@@ -54,8 +54,7 @@ fun MainContent(navController: NavController, favoritesViewModel: FavoritesViewM
             MovieRow(movie = movie,
                 onItemClick = { movieId ->
                     navController.navigate(route =  MovieScreens.DetailScreen.name + "/$movieId")
-                },
-                showFavoriteIcon = false
+                }
             )
         }
     }

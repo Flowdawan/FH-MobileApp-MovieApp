@@ -40,9 +40,7 @@ import com.example.movie.models.getMovies
 fun MovieRow(
     movie: Movie = getMovies()[0],
     onItemClick: (String) -> Unit = {},
-    onFavoriteClick: (Movie) -> Unit = {},
-    isAlreadyInList: Boolean = false,
-    showFavoriteIcon: Boolean = true
+    content: @Composable () -> Unit = {}
 ) {
     var isArrowUp by remember {
         mutableStateOf(false)
@@ -124,21 +122,28 @@ fun MovieRow(
                     modifier = Modifier.clickable { isArrowUp = !isArrowUp }
                 )
             }
-            if(showFavoriteIcon) {
-                Icon(imageVector = if (!isAlreadyInList) {
-                    Icons.Default.FavoriteBorder
-                } else {
-                    Icons.Default.Favorite
-                },
-                    contentDescription = "Add favorite Movie",
-                    modifier = Modifier
-                        .clickable { onFavoriteClick(movie) }
-                        .padding(15.dp)
-
-                )
-            }
+            content()
         }
     }
+}
+
+@Composable
+fun FavoriteIcon(
+    movie: Movie = getMovies()[0],
+    onFavoriteClick: (Movie) -> Unit = {},
+    isAlreadyInList: Boolean = false
+) {
+    Icon(imageVector = if (!isAlreadyInList) {
+        Icons.Default.FavoriteBorder
+    } else {
+        Icons.Default.Favorite
+    },
+        contentDescription = "Add favorite Movie",
+        modifier = Modifier
+            .clickable { onFavoriteClick(movie) }
+            .padding(15.dp),
+        Color.Red
+    )
 }
 
 @Composable

@@ -14,6 +14,7 @@ import com.example.movie.models.Movie
 import com.example.movie.models.getMovies
 import com.example.movie.navigation.MovieScreens
 import com.example.movie.viewmodels.FavoritesViewModel
+import com.example.movie.widgets.FavoriteIcon
 import com.example.movie.widgets.MovieRow
 
 @Composable
@@ -59,19 +60,24 @@ fun MainContent(
         items(items = movies) { movie ->
             MovieRow(
                 movie = movie,
-                onFavoriteClick = { movie ->
-                    if (favoritesViewModel.isMovieInList(movie)) {
-                        favoritesViewModel.removeMovie(movie)
-
-                    } else {
-                        favoritesViewModel.addMovie(movie)
-                    }
-                },
                 onItemClick = { movieId ->
                     navController.navigate(route = MovieScreens.DetailScreen.name + "/$movieId")
-                },
-                isAlreadyInList = favoritesViewModel.isMovieInList(movie)
-            )
+                }){
+                    FavoriteIcon(
+                        movie = movie,
+                        isAlreadyInList = favoritesViewModel.isMovieInList(movie),
+                        onFavoriteClick = {
+                                movie ->
+                            if (favoritesViewModel.isMovieInList(movie)) {
+                                favoritesViewModel.removeMovie(movie)
+
+                            } else {
+                                favoritesViewModel.addMovie(movie)
+                            }
+                        }
+
+                    )
+            }
         }
     }
 }
