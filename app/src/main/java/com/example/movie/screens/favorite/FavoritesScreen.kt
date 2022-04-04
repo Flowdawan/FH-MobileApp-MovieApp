@@ -1,4 +1,4 @@
-package com.example.movie.screens
+package com.example.movie.screens.favorite
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.movie.models.Movie
-import com.example.movie.models.getMovies
 import com.example.movie.navigation.MovieScreens
 import com.example.movie.screens.detail.filterMovie
 import com.example.movie.widgets.MovieRow
