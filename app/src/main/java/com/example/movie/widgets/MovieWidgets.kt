@@ -15,9 +15,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,8 +37,13 @@ import com.example.movie.models.getMovies
 @Preview
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MovieRow(movie: Movie = getMovies()[0],
-             onItemClick: (String) -> Unit = {}) {
+fun MovieRow(
+    movie: Movie = getMovies()[0],
+    onItemClick: (String) -> Unit = {},
+    onFavoriteClick: (Movie) -> Unit = {},
+    isAlreadyInList: Boolean = false,
+    showFavoriteIcon: Boolean = true
+) {
     var isArrowUp by remember {
         mutableStateOf(false)
     }
@@ -121,16 +124,31 @@ fun MovieRow(movie: Movie = getMovies()[0],
                     modifier = Modifier.clickable { isArrowUp = !isArrowUp }
                 )
             }
+            if(showFavoriteIcon) {
+                Icon(imageVector = if (!isAlreadyInList) {
+                    Icons.Default.FavoriteBorder
+                } else {
+                    Icons.Default.Favorite
+                },
+                    contentDescription = "Add favorite Movie",
+                    modifier = Modifier
+                        .clickable { onFavoriteClick(movie) }
+                        .padding(15.dp)
+
+                )
+            }
         }
     }
 }
 
 @Composable
-fun HorizontalScrollableImageView(movie: Movie = getMovies()[0]){
-    LazyRow{
-        items(movie.images){ movie ->
+fun HorizontalScrollableImageView(movie: Movie = getMovies()[0]) {
+    LazyRow {
+        items(movie.images) { movie ->
             Card(
-                modifier = Modifier.padding(12.dp).size(240.dp),
+                modifier = Modifier
+                    .padding(12.dp)
+                    .size(240.dp),
                 elevation = 4.dp
             )
             {

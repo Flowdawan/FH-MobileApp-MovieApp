@@ -12,10 +12,13 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movie.models.Movie
 import com.example.movie.models.getMovies
+import com.example.movie.navigation.MovieScreens
+import com.example.movie.viewmodels.FavoritesViewModel
 import com.example.movie.widgets.HorizontalScrollableImageView
 import com.example.movie.widgets.MovieRow
 
@@ -24,7 +27,8 @@ import com.example.movie.widgets.MovieRow
 @Composable
 fun DetailScreen(
     navController: NavController = rememberNavController(),
-    movieId: String? = getMovies()[0].id
+    movieId: String? = getMovies()[0].id,
+    favoritesViewModel: FavoritesViewModel = viewModel()
 ) {
     val movie = filterMovie(movieId)
     Scaffold(
@@ -43,17 +47,28 @@ fun DetailScreen(
             }
         }
     ) {
-        MainContent(movie)
+        MainContent(movie, favoritesViewModel = favoritesViewModel)
     }
 
 }
 
 @Composable
-fun MainContent(movie: Movie) {
+fun MainContent(movie: Movie, favoritesViewModel: FavoritesViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MovieRow(movie)
+        MovieRow(
+            movie = movie,
+            onFavoriteClick = { movie ->
+                if (favoritesViewModel.isMovieInList(movie)) {
+                    favoritesViewModel.removeMovie(movie)
+
+                } else {
+                    favoritesViewModel.addMovie(movie)
+                }
+            },
+            isAlreadyInList = favoritesViewModel.isMovieInList(movie)
+        )
 
         Divider(
             color = Color.Gray,

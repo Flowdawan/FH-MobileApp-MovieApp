@@ -1,8 +1,10 @@
 package com.example.movie
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
@@ -27,6 +29,7 @@ import com.example.movie.models.Movie
 import com.example.movie.models.getMovies
 import com.example.movie.navigation.MovieNavigation
 import com.example.movie.ui.theme.MovieTheme
+import com.example.movie.viewmodels.FavoritesViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +39,10 @@ class MainActivity : ComponentActivity() {
                 MovieNavigation()
             }
         }
+
     }
+
+
 }
 
 @Composable
