@@ -67,12 +67,12 @@ fun MovieRow(
                         .data(movie.images[0])
                         .crossfade(true)
                         .build(),
-                    contentDescription = "Movie Cober",
+                    contentDescription = "Movie Cover",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.clip(CircleShape)
                 )
             }
-            Column() {
+            Column {
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.caption,
@@ -88,10 +88,11 @@ fun MovieRow(
                 AnimatedVisibility(visible = isArrowUp) {
                     Column(
                         modifier = Modifier.padding(7.dp)
+                        .width(200.dp),
                     ) {
                         Text(
                             text = "Plot: ${movie.plot}",
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.subtitle2,
                         )
                         Divider(
                             color = Color.Gray,
@@ -101,15 +102,15 @@ fun MovieRow(
                         )
                         Text(
                             text = "Genre: ${movie.genre}",
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.subtitle2,
                         )
                         Text(
                             text = "Actors: ${movie.actors}",
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.subtitle2,
                         )
                         Text(
                             text = "Rating: ${movie.rating}",
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.subtitle2,
                         )
                     }
                 }
